@@ -69,4 +69,4 @@ TickDone은 사용자가 일일 목표부터 중장기 목표까지 설정하고
 - Spring Boot  
 - Spring Security (인증 / 인가)  
 - Spring Data JPA (데이터베이스 연동)  
-- H2 / MySQL (개발 / 운영 DB)
+- Mybatis 
