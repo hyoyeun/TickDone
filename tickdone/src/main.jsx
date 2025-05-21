@@ -17,9 +17,7 @@ if (process.env.NODE_ENV === 'development') {
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Header />
       <App />
-      <Footer />
     </BrowserRouter>
   </React.StrictMode>
 )
