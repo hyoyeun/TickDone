@@ -3,16 +3,13 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { format } from 'date-fns';
 
-const sampleTodos = {
-    '2025-05-22': ['React 공부', '운동하기'],
-    '2025-05-23': ['팀 미팅', '목표 정리'],
-};
+
 
 function MyCalendar() {
     const [value, setValue] = useState(new Date());
     const dateKey = value.toISOString().split('T')[0]; // 'YYYY-MM-DD' 형태
     function stringDay(date) {
-        const dateKey = date.toISOString().split('T')[0];
+        const dateKey = value.toISOString().split('T')[0];
         const sameday = Object.entries(dataByDate).find(([key]) => key === dateKey);
 
         if (sameday) {
@@ -23,7 +20,43 @@ function MyCalendar() {
         }
     }
 
-    const todos = sampleTodos[dateKey] || [];
+    function highGrade(date) {
+        const dateKey = value.toISOString().split('T')[0];
+        const someDay = Object.entries(dataByDate).find(([key]) => key === dateKey);
+
+        console.log("구조분해 할당 전 " + someDay)
+        if (someDay) {
+            const [_, value] = someDay;
+            console.log("구조분해 할당 후 " + value.score)
+            if (value.score >= 7) {
+                return `veryGood,  score : ${value.score}`;
+            } else if (value.score >= 5) {
+                return `Goood, score : ${value.score} `;
+            } else {
+                return `tryMore, score : ${value.score}`;
+            }
+        }
+    }
+
+    function todoListShow(data) {
+        const dataKey = value.toISOString().split('T')[0];
+        const someDay = Object.entries(dataByDate).find(([key]) => key === dataKey);
+
+        if (someDay) {
+            const [_, value] = someDay;
+
+            return <div>
+                {value.todos.map((item, index) => {
+                    return <p key={index}>{item}</p>
+                })}
+            </div>
+
+        } else {
+            return '투두 리스트가 존재하지 않습니다.'
+        }
+    }
+
+
     const dataByDate = {
         "2025-05-22": {
             todos: ["React 공부", "운동하기"],
@@ -59,7 +92,12 @@ function MyCalendar() {
             todos: ["디자인 피드백 반영", "프로젝트 정리"],
             memo: "일의 마무리가 만족스러웠음",
             score: 8
+        },
+        "2025-05-29": {
+            memo: "집중안됨",
+            score: 2
         }
+
     };
 
     return (
@@ -67,12 +105,14 @@ function MyCalendar() {
 
             <div className="p-5">
                 <Calendar
-                    onChange={(date) => (setValue(date), stringDay(date), console.log('ddddddddd' + dateKey))}
+                    onChange={(date) => (setValue(date), stringDay(date), console.log('ddddddddd ' + dateKey), highGrade(date), todoListShow(data))}
                     value={value}
                 />
             </div>
             <div>
-                <p>{stringDay(value)}</p>
+                <p>memo => {stringDay(value)}</p>
+                <p>score => {highGrade(value)}</p>
+                <p>todoList {todoListShow(value)}</p>
             </div>
         </div>
 

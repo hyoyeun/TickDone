@@ -30,9 +30,9 @@ function Login() {
                     </form>
                 </div>
                 <div class="w-[100%] h-[20%] bg-purple-500 flex justify-around items-center text-2xl">
-                   <button >아이디 찾기</button>
-                   <button >비밀번호 찾기</button>
-                    <button >회원가입</button>
+                    <button >아이디 찾기</button>
+                    <button >비밀번호 찾기</button>
+                    <button onClick={() => navigate('/membership')}>회원가입</button>
                 </div>
             </div>
             {/* 오른쪽 이미지 영역 */}
